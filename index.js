@@ -1,10 +1,12 @@
 const express =require("express");
 const app= express();
+require('dotenv').config();
 
 const dgram = require('dgram');
 const socket = dgram.createSocket('udp4');
 
 const mysql = require('mysql');
+const { timeStamp } = require("console");
 
 
 app.set('view engine', 'ejs');
@@ -23,8 +25,9 @@ socket.on('message', function(msg, rinfo){
     console.log(msg)  
     Latitud = msg.toString().split(' ')[0];
 	Longitud = msg.toString().split(' ')[1];
+    timestamp = msg.toString().split(' ')[2];
 
-    connection.query('INSERT INTO tabla (Latitud, Longitud) VALUE ("'+Lat+'","'+Lng+'")', function(error){
+    connection.query('INSERT INTO tabla (Latitud, Longitud, timestamp) VALUES ("'+Lat+'","'+Lng+'","'+ts+'",)', function(error){
 		if(error){
 			console.log("An error has occured: ", error)
 		}
