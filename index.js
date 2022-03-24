@@ -6,11 +6,12 @@ const dgram = require('dgram');
 const socket = dgram.createSocket('udp4');
 
 const mysql = require('mysql');
-const { timeStamp } = require("console");
 
 
 app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3010);
+
+
 
 
 const connection = mysql.createConnection({
@@ -20,6 +21,13 @@ const connection = mysql.createConnection({
 	password: process.env.PASS
 });
 
+connection.connect(function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("Connection created...");
+    }
+})
 
 socket.on('message', function(msg, rinfo){
     console.log(msg)  
