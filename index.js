@@ -35,7 +35,7 @@ socket.on('message', function(msg, rinfo){
 	Longitud = msg.toString().split(' ')[1];
     timestamp = msg.toString().split(' ')[2];
 
-    connection.query('INSERT INTO tabla (Latitud, Longitud, timestamp) VALUES ("'+Lat+'","'+Lng+'","'+ts+'",)', function(error){
+    connection.query('INSERT INTO tabla (Latitud, Longitud, timestamp) VALUES ("'+Latitud+'","'+Longitud+'","'+timestamp+'",)', function(error){
 		if(error){
 			console.log("An error has occured: ", error)
 		}

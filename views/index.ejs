@@ -51,12 +51,12 @@
             console.log(data);
             data = JSON.parse(data);
             console.log(data);
-            lat.innerHTML=data.Lat;
-            lng.innerHTML=data.Lng;
-            ts.innerHTML=data.ts;
+            lat.innerHTML=data.Latitud;
+            lng.innerHTML=data.Longitud;
+            ts.innerHTML=data.timestamp;
 
-            mapa.setView([data.Lat, data.Lng], 13);
-            var marker = L.marker([data.Lat, data.Lng]).addTo(mapa);
+            mapa.setView([data.Latitud, data.Longitud], 13);
+            var marker = L.marker([data.Latitud, data.Longitud]).addTo(mapa);
         }
         else{
             console.log(`readyState: ${http.readyState}`);
