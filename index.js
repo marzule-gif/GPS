@@ -18,7 +18,8 @@ const connection = mysql.createConnection({
 	host: process.env.HOST,
 	database: process.env.DB,
 	user: process.env.USER,
-	password: process.env.PASS
+	password: process.env.PASS,
+    insecureAuth :false
 });
 
 connection.connect(function(err){
