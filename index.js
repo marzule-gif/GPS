@@ -21,7 +21,7 @@ const connection = mysql.createConnection({
 	password: process.env.PASS
 });
 
-con.connect(function(err){
+connection.connect(function(err){
     if(err){
       console.log(err);
     }else{
