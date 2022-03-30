@@ -21,13 +21,15 @@ const connection = mysql.createConnection({
 	password: process.env.PASS
 });
 
-connection.connect(function(error){
-    if(error){
-        console.log(error);
+con.connect(function(err){
+    if(err){
+      console.log(err);
     }else{
-        console.log("Connection created...");
+      console.log("Connection created!");
     }
-})
+  })
+
+
 
 socket.on('message', function(msg, rinfo){
     console.log(msg)  
