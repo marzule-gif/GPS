@@ -31,6 +31,12 @@
     <h4> Time Stamp: </h4>
     <p style="border: 1px solid black" id="ts"> value </p>
 
+    <form id="filtro">
+        <input type="datetime-local" name="inicio">
+        <input type="datetime-local" name="final">
+        <button type="submit">enviar</button>
+    </form>
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
@@ -42,6 +48,8 @@
         const lat = document.getElementById("lat");
         const lng = document.getElementById("lng");
         const ts = document.getElementById("ts");
+        var polinereal= new Array();
+
  setInterval(function(){
     var http = new XMLHttpRequest();
     http.open('GET','/consulta')
@@ -57,6 +65,8 @@
 
             mapa.setView([data.Latitud, data.Longitud], 13);
             var marker = L.marker([data.Latitud, data.Longitud]).addTo(mapa);
+            polinereal.push([data.Latitud, data.Longitud]);
+            const poli = L.polyline(polinereal).addTo(mapa);
         }
         else{
             console.log(`readyState: ${http.readyState}`);
@@ -67,6 +77,34 @@
  }, 5000);
     </script>
     
+    <script>
+
+        const form = document.getElementById('filtro');
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            const body =new FormData(form);
+            var http = new XMLHttpRequest()
+            http.open('GET', '/history' )
+            http.onreadystatechange= function(){
+                if (http.readyState == 4 && http.status == 200){
+                    var vect =http.responseText;
+                    vect = JSON.parse(data);
+
+                    var hist = new Array();
+                    for (var data of vect){
+                    hist.push([data.Latitud, data.Longitud]);   
+                    }
+                    
+                    var poline =L.polyline(hist).addTo(map);
+    
+                }else{
+                    console.log('no han llegado')
+                }
+            }
+            http.send()
+        })
+        
+    </script>
 </body>
 
 </html>

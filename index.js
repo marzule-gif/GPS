@@ -55,7 +55,7 @@ app.get('/', function(req, res){
 
 
 app.get('/consulta', function(req, res){
-    connection.query(`SELECT * FROM tabla WHERE Id = (SELECT MAX(Id) FROM tabla)`, function(error, data){
+    connection.query(`SELECT * FROM Datos WHERE Id = (SELECT MAX(Id) FROM Datos)`, function(error, data){
         if(error){
             console.log(error);
             res.status(500)
@@ -66,7 +66,21 @@ app.get('/consulta', function(req, res){
     });
 
 });
-    
+
+app.get('/history', function(req, res){
+  const data1 = req.body.data1;
+  const data2 =req.body.data2; 
+  connection.query(`SELECT * FROM Datos WHERE timestamp BETWEEN ${data1} AND ${data2})`, function(error, data){
+      if(error){
+          console.log(error);
+          res.status(500)
+      }else{
+          console.log(data);
+          res.send(data);
+      }
+  });
+
+});
 
 
 
